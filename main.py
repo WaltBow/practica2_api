@@ -1,7 +1,16 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
 
+app = FastAPI()
 
-git config --global user.email "walter.bowyer@ulead.ac.cr"
-git config --gl
+# Memoria temporal
+usuarios = {}
 
+class Usuario(BaseModel):
+    nombre: str
+    edad: int
 
-obal user.name "WaltBow"
+@app.post("/usuarios/")
+def guardar_usuario(user: Usuario):
+    usuarios[user.nombre] = user
+    return {"mensaje": f"Usuario {user.nombre} guardado exitosamente"}
